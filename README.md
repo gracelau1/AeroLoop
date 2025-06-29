@@ -1,3 +1,3 @@
-![Alt text](pictures/banner.png)
+![Alt text](pictures/banner1.png)
 # AeroLoop
 A waste management system for commercial flights optimised for minimal energy use, hardware cost and weight added to aircraft.
