@@ -28,7 +28,7 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 2: **Label** images collected <br>
 
 <p align="center">
-  <img src="pictures/labelling1.gif" width="600" alt="Labelling GIF" />
+  <img src="pictures/labelling2.gif" width="600" alt="Labelling GIF" />
 </p>
 
 3: Do **Data Augmentation** on current dataset to expose model to visual variability of tiny food bits (lighting, size, angle, occlusion) <br>
@@ -37,12 +37,14 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 6: Implement **Image Capture pipeline** (Add **tiling** step, optimise **resolution**, and **AutoAnchors**) <br>
 7: Run inference on Jetson NanoRun real-time inference with Raspberry Pi Camera Module v2, **assess accuracy**, **retrain** if accuracy <95%. <br>
 <p align="center">
-  <img src="pictures/Setup" width="600" alt="Setup Pic" />
+  <img src="pictures/Setup.jpg" width="300" alt="Setup Pic" style="display: inline-block;"/>
+  <img src="tray.png" width="300" alt="Image 2" style="display: inline-block;" />
 </p>
 
 # Repository contains:
-1. YOLOv8_Training_Colab.ipynb — Colab notebook used to train dataset
-2, inference.py — script for Nvidia Jetson Nano (4GB) to run inference on images captured by Raspberry Pi camera
-3. utils.py: helper script for tiling images (3×3) to improve detection of tiny food bits
+1. YOLOv8_Training_Colab.ipynb — **Colab notebook** used to train dataset
+2. inference.py -  Script for Nvidia Jetson Nano (4GB) to **run inference** on images captured by Raspberry Pi camera
+3. utils.py: **Helper script** for tiling images (3×3) to improve detection of tiny food bits
+4. Folder for Crew Ipad - Generate flight_details .json file containing destination to enable cabin crew to **dynamically change** Jetson Nano's output result **according to destination** and possibility of changes to ICW regulations.
 
 
