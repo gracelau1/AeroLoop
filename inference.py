@@ -45,7 +45,7 @@ def decide_led(detected_classes, destination): #Use set of detected class names,
 
 
 
-def run_tile_inference(destination, image_path, conf=0.15, overlap=30): #tiles image, runs yolo inference on each tile, calc inference time
+def run_tile_inference(image_path, conf=0.15, overlap=30, destination): #tiles image, runs yolo inference on each tile, calc inference time
     tiles= tile_image(image_path, overlap=overlap)
     
     #Run batch inference on all 9 tiles, measures time taken
@@ -78,7 +78,7 @@ def run_tile_inference(destination, image_path, conf=0.15, overlap=30): #tiles i
 
 
 #captures frames from camera continuously and calls above function repeatedly
-def run_live_video(destination, conf=0.15, overlap=30, cam_index=0):
+def run_live_video(conf=0.15, overlap=30, destination, cam_index=0):
     cap= cv2.VideoCapture(cam_index) # Open Pi Cam
     if not cap.isOpened(): #Exit if camera not found
         print("Error: Camera not accessible.")
@@ -99,7 +99,7 @@ def run_live_video(destination, conf=0.15, overlap=30, cam_index=0):
             cv2.imwrite(temp_image_path, frame)
 
             # Call function for inference on tiled frame, over and over
-            run_tile_inference(destination, temp_image_path, conf=conf, overlap=overlap)
+            run_tile_inference(temp_image_path, conf=conf, overlap=overlap, destination)
 
             # Display (for troubleshooting)
             cv2.imshow("Live Feed", frame)
