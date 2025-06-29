@@ -27,13 +27,18 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 1: **Collect dataset** (using a phone/digital camera) <br>
 2: **Label** images collected <br>
 
-![Alt text](pictures/labelling.gif)
+<p align="center">
+  <img src="pictures/labelling1.gif" width="600" alt="Labelling GIF" />
+</p>
 
 3: Do **Data Augmentation** on current dataset to expose model to visual variability of tiny food bits (lighting, size, angle, occlusion) <br>
 4: **Train Model** (On laptop, Colab Notebook) <br>
 5: **Export** trained model (.tflite (for TensorFlow Lite) after **quantisation (convert to INT8)** and **pruning**, **upload** to Nvidia Jetson Nano (4GB) <br>
 6: Implement **Image Capture pipeline** (Add **tiling** step, optimise **resolution**, and **AutoAnchors**) <br>
 7: Run inference on Jetson NanoRun real-time inference with Raspberry Pi Camera Module v2, **assess accuracy**, **retrain** if accuracy <95%. <br>
+<p align="center">
+  <img src="pictures/Setup" width="600" alt="Setup Pic" />
+</p>
 
 # Repository contains:
 1. YOLOv8_Training_Colab.ipynb — Colab notebook used to train dataset
