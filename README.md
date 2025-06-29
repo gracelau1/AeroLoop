@@ -9,10 +9,9 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 # Machine Learning (ML) Model Training to make predictions (Multi-label Classification)
 | Benchmarks the ML must meet | Measures Undertaken |
 |--|--|
-| Image capture and processing pipeline must be optimised for fine-grain pixel detection, as food bits on meal trays might be too small (too few pixels) for detection. |  Use Tiling and optimised resolution: 640×640 + tiling (split each image captured by Raspberry Pi Cam into 3×3 tiles, run inference on each of the 9 images), use Yolov8n's AutoAnchor feature to define what sizes/shapes of objects the model expects, enable it to lock onto tiny food bits automatically, set confindence interval to a lower value (eg. 15%) makes the model surface weaker, low-confidence objects
-
-| Response time must be <2s so as to not delay tray collection by cabin crews. | Chose Nvidia Jetson Nano (4GB) for a safe margin of processing speed, export Yolov8n as lightweight format of TensorFlow to maximise speed of inferences made |
-| Able to distinguish between more than 2 food classes, not just ICW and non-ICW, as different countries have different ICW regulations (eg. fruits are ICW in US, while not in EU) so that we would | be able to output the correct LED light (green/red) according to the country of destination. | Multi-label Classification (See Below)
+| Image capture and processing pipeline must be optimised for **fine-grain pixel detection**, as food bits on meal trays might be too small (too few pixels) for detection. | - Use **Tiling** and **optimised resolution**: 640×640 + tiling (split each image captured by Raspberry Pi Cam into 3×3 tiles, then run inference on each of the 9 images) <br> - Use Yolov8n's **AutoAnchor feature** to define what sizes/shapes of objects the model expects, enable it to lock onto tiny food bits automatically <br> -Set **confindence interval to a lower value** (eg. 15%) makes the model surface weaker, low-confidence objects <br>
+| Response time **must be <2s** so as to not delay tray collection by cabin crews. | Chose Nvidia Jetson Nano (4GB) for a safe margin of processing speed <br> - Export Yolov8n as lightweight format of TensorFlow to maximise speed of inferences made <br>| 
+| Able to **distinguish between more than 2 food classes**, not just ICW and non-ICW, as different countries have different ICW regulations (eg. fruits are ICW in US, while not in EU). This is so that we would  be able to output the correct LED light (green/red) according to the country of destination. | **Multi-label Classification** (See Below)
 
 ## Labels
 1. Meat Bits
