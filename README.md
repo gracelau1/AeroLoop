@@ -24,13 +24,15 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 8. Dessert
 
 # Process of training ML Model
-1. Collect dataset (using a phone/digital camera)
-2. Label
+1: Collect dataset (using a phone/digital camera)
+2: Label
+
 ![Alt text](pictures/labelling.gif)
-4. Do Data Augmentation on current dataset to expose model to visual variability of tiny food bits (lighting, size, angle, occlusion)
-5. Train Model (On laptop, Colab Notebook)
-6. Export trained model (.tflite (for TensorFlow Lite), upload to Nvidia Jetson Nano (4GB)
-7. Implement Image Capture pipeline (Add tiling step, optimise resolution, and AutoAnchors)
-8. Run inference on Jetson NanoRun real-time inference with Raspberry Pi Camera Module v2, assess accuracy, retrain if accuracy <95%
+
+3: Do Data Augmentation on current dataset to expose model to visual variability of tiny food bits (lighting, size, angle, occlusion)
+4: Train Model (On laptop, Colab Notebook)
+5: Export trained model (.tflite (for TensorFlow Lite), upload to Nvidia Jetson Nano (4GB)
+6: Implement Image Capture pipeline (Add tiling step, optimise resolution, and AutoAnchors)
+7: Run inference on Jetson NanoRun real-time inference with Raspberry Pi Camera Module v2, assess accuracy, retrain if accuracy <95%
 
 
