@@ -43,7 +43,7 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 </p>
 
 
-# Repository contains files for running ML Model on Jetson Nano:
+# Repository contains files for deployment on aircraft:
 1. YOLOv8_Training_Colab.ipynb — **Colab notebook** used to train dataset
 2. inference.py -  Script for Nvidia Jetson Nano (4GB) to **run inference** on images captured by Raspberry Pi camera
 3. utils.py: **Helper script** for tiling images (3×3) to improve detection of tiny food bits
