@@ -35,4 +35,9 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 6: Implement **Image Capture pipeline** (Add **tiling** step, optimise **resolution**, and **AutoAnchors**) <br>
 7: Run inference on Jetson NanoRun real-time inference with Raspberry Pi Camera Module v2, **assess accuracy**, **retrain** if accuracy <95%. <br>
 
+# Repository contains:
+1. YOLOv8_Training_Colab.ipynb — Colab notebook used to train dataset
+2, inference.py — script for Nvidia Jetson Nano (4GB) to run inference on images captured by Raspberry Pi camera
+3. utils.py: helper script for tiling images (3×3) to improve detection of tiny food bits
+
 
