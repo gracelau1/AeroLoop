@@ -47,6 +47,6 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 1. YOLOv8_Training_Colab.ipynb — **Colab notebook** used to train dataset
 2. inference.py -  Script for Nvidia Jetson Nano (4GB) to **run inference** on images captured by Raspberry Pi camera
 3. utils.py: **Helper script** for tiling images (3×3) to improve detection of tiny food bits
-4. Folder for Crew Ipad - Generate flight_details .json file containing destination to enable cabin crew to **dynamically change** Jetson Nano's output result **according to destination** and possibility of changes to ICW regulations.
+4. frontend_ipad.html and backend.py - Generate flight_details .json file containing destination to enable cabin crew to **dynamically change** Jetson Nano's output result **according to destination** and possibility of changes to ICW regulations.
 
 
