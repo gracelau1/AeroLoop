@@ -1,4 +1,4 @@
-names:
+names: #replace class names here
 - Airline-Meals
 - Carb
 - Dairy
@@ -9,6 +9,7 @@ names:
 - Pastry
 - Sauce
 - Veg
-path: C:\Users\grace\yolo_data
-train: images/train
-val: images/train
+path: C:\Users\grace\yolo_data # path to yolo_data folder
+train: images/train # file path to train folder
+val: images/train # file path to val folder
+
