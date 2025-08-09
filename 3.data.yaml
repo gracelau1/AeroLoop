@@ -1,0 +1,14 @@
+names:
+- Airline-Meals
+- Carb
+- Dairy
+- Dessert
+- Drink
+- Fruit
+- Meat
+- Pastry
+- Sauce
+- Veg
+path: C:\Users\grace\yolo_data
+train: images/train
+val: images/train
