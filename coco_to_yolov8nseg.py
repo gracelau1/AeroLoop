@@ -1,31 +1,27 @@
-# COCO Segmentation JSON --> YOLOv8 Segmentation TXT Format
-# Save this as coco_to_yolov8seg.py
+# coco_to_yolov8nseg.py script turns COCO Segmentation JSON (annotations.json in Roboflow zipfile) into YOLOv8 Segmentation TXT Format
 
 import json
 import os
 from tqdm import tqdm
 import cv2
 
-# ---- CONFIG ----
-# Change these paths depending on which split you're processing
+# CONFIG: Change these paths according to which split you are running (train, valid, or test) as Roboflow seperates images and annotations into 3 seperate folders. You will have to run this script 3 times on each of the folders to turn all 3 annotations.json to yolov8 txt files
 coco_json_path = r"C:\Users\grace\Dataset\images\test\annotations.json"
 images_dir = r"C:\Users\grace\Dataset\images\test"
 labels_dir = r"C:\Users\grace\Dataset\labels\test"
 
-
-
-# ---- Ensure labels directory exists ----
+# Ensure labels directory exists
 os.makedirs(labels_dir, exist_ok=True)
 
-# ---- Load COCO JSON ----
+# Load COCO JSON
 with open(coco_json_path, 'r') as f:
     coco = json.load(f)
 
-# ---- Build Lookup Tables ----
+#Build Lookup Tables
 image_id_to_filename = {img['id']: img['file_name'] for img in coco['images']}
 category_id_to_class_id = {cat['id']: idx for idx, cat in enumerate(coco['categories'])}
 
-# ---- Process Annotations ----
+#Process Annotations
 labels = {img['file_name']: [] for img in coco['images']}
 
 for ann in tqdm(coco['annotations']):
@@ -70,7 +66,7 @@ for ann in tqdm(coco['annotations']):
 
     labels[image_filename].append(' '.join(label_line))
 
-# ---- Write Labels ----
+# Write Labels
 for img_filename, label_lines in labels.items():
     label_filename = os.path.splitext(img_filename)[0] + ".txt"
     with open(os.path.join(labels_dir, label_filename), 'w') as f:
