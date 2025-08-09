@@ -61,7 +61,7 @@ LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1 python3 engine_inference.py -
   <i>Output Image from running engine_inference.py on Jetson Nano (4GB)</i></br>
 </p>
 
-11: **Assess accuracy**, and **retrain model by going back to step 1 and adding images of under-represented classes to Roboflow dataset** if accuracy <95%. <br>
+11: **Assess accuracy** **latency**, and **retrain model by going back to step 1 and adding images of under-represented classes to Roboflow dataset** if accuracy <95% or if latency is not desirable. <br>
 
 
 
@@ -71,5 +71,6 @@ LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1 python3 engine_inference.py -
 2. data.yaml - **.yaml file** needed for training of YOLOv8n model using the terminal command above.
 3. engine_inference.py -  **Python Script** for Nvidia Jetson Nano (4GB) to **run inference** on images captured by Raspberry Pi camera using a .engine model.
 4. frontend_ipad.html and backend.py - Generate flight_details .json file containing destination to enable cabin crew to **dynamically change** Jetson Nano's output result **according to destination** and possibility of changes to ICW regulations.
+5. run_pt_inference_load_once.py - **Python Script** to run inference on an image using .pt model (use to benchmark .engine model against .pt model, see if there are any drastic differences in accuracy or latency)
 
 
