@@ -7,46 +7,69 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 
 
 # Component 2 of AeroLoop: Airline Meal Computer Vision Project
-| Benchmarks the Machine Learning model trained must meet | Measures Undertaken |
-|--|--|
-| Image capture and processing pipeline must be optimised for **fine-grain pixel detection**, as food bits on meal trays might be too small *(too few pixels)* for detection. | After model is trained, and after exporting and conversion to INT8, configure in Inference Script: - Use <ins>**Tiling**</ins> and <ins>**optimised resolution**</ins>: 640×640 + tiling *(split each image captured by Raspberry Pi Cam into 3×3 tiles, then run inference on each of the 9 images)* <br> -Set <ins>**confidence interval to a lower value**</ins> *(eg. 15%)* makes the model surface weaker, low-confidence objects <br>
-| Response time **must be <2s** so as to not delay tray collection by cabin crews. | After model is trained, at exporting step: - <ins>**Export to ONNX**</ins>, then use the Jetson Nano's **<ins>own native TensorRT tooling (trtexec/onnc2trt)**</ins> to quantize the trained model to INT8 *(much better to do the conversion from ONNX to INT8 natively on the Jetson using its own TensorRT version, as YOLOv8's engine export uses TensorRT Python bindings, which might not generate an engine optimized for Jetson’s architecture (ARM, CUDA versions))* <br>| 
-| Able to **distinguish between more than 2 food classes**, not just ICW and non-ICW, as different countries have different ICW regulations *(eg. fruits are ICW in US, while not in EU)*. This is so that we would  be able to output the correct LED light *(green/red)* according to the country of destination. | Choose <ins>**Image Segmentation**</ins> over just Classification or Multi-label Classification (See Below)
-
-## Labels
-1. Meat Bits
-2. Vegetable Bits
-3. Fruit Bits
-4. Dessert Leftover
-5. Meat
-6. Vegetable
-7. Fruit
-8. Dessert
-
-# Process of training ML Model
+This github contains files to train a Computer Vision Image Segmentation model from scratch for deployment on Jetson Nano (4GB), making use of free features on the Roboflow platform.
+## Process:
+### On Windows 11 Local Computer
 1: <ins>**Collect dataset**</ins> (using a phone/digital camera) <br>
-2: <ins>**Label** </ins> images collected <br>
+
+2: <ins>**Label** </ins> images collected on Roboflow, and since this is image segmentation, do this by drawing polygons over objects. Use Roboflow's Smart Polygon tool to do this. [Link to labelled Roboflow Dataset](https://app.roboflow.com/boeing-yqqas/computer-vision-project-fonhr/models)<br>
 
 <p align="center">
   <img src="pictures/labelling2.gif" width="600" alt="Labelling GIF" /><br>
   <i>Image Segmentation on Roboflow</i>
 </p>
 
-3: Do <ins>**Data Augmentation**</ins> on current dataset to expose model to visual variability of tiny food bits (lighting, size, angle, occlusion) <br>
-4: <ins>**Train Model**</ins> (On laptop, Colab Notebook) as yolov8n-seg.pt (Nano-friendly model) with: **augmentations**, **val=True** (tracking model performance mid-training by ensuring validation is run during training, **patience=20** to prevent wasted time and overfitting due to model memorising training images and doing poorly on new data, **device=0** for GPU selection on Colab Notebook instead of local computer CPU (for faster training duration) <br>
-5: <ins>**Export model**</ins> on Colab Notebook as onnx, upload onnx to Jetson Nano (4GB) and on Jetson Nano (4GB), convert onnx to TensorRT with trtexec (Quantize only on representative data, TensorRT does this for INT8) <br>
-6: <ins>**Configure Image Capture pipeline**</ins>. Add: **Tiling** step, Optimise **resolution** - keep img resolution 640 or below, **Set lower confidence interval** - increase detections surfaced, including low-confidence ones which is useful for small objects like crumbs) <br>
-7: <ins>**Run inference**</ins> on Jetson NanoRun real-time inference with Raspberry Pi Camera Module v2, **assess accuracy**, **retrained** if accuracy <95%. <br>
+3: Make use of Roboflow's functions to add <ins>**Data Augmentation**</ins> on current dataset to expose model to visual variability of classes (brightness, size, rotation/orientation of objects, saturation, occlusion etc.) <br>
+
+4: <ins>**Download the zipfile**</ins> containing your labelled dataset's annotation.json files (details the polygons you have just drawn on the images for Image Segmentation) and images from Roboflow by choosing to download as **COCO Image Segmentation**.
+
+5: Open terminal on local computer to run and use coco_to_yolov8nseg.py script (file in this github repository) to **<ins>convert COCO Image segmentation zipfile's annotation.json to yolov8 labels.</ins>** <br>
+
+6: Create <ins>**data.yaml**</ins> file according to the file in this git repository. <br>
+
+7: <ins>**<ins>Train YOLOv8n Model which outputs as .pt format</ins>**</ins> using data.yaml, labels outputted from coco_to_yolov8nseg.py and images from your dataset using the following command: <br>
+
+```
+yolo task=segment mode=train model=yolov8n-seg.pt data=dataset.yaml epochs=100 imgsz=640 # this command also forces ‘yolov8n-seg.pt model to be downloaded so that the model can be trained
+```
+
+This is the most time-consuming part of the whole process, took about 2 hours for a data set of 500+ images. <br>
+
+8: <ins>**Convert</ins> .pt model to INT32 (INT32 is simplified) .onnx model** using this command:
+```
+yolo export model="C:\Users\grace\runs\segment\train2\weights\best.pt" format=onnx simplify=True
+```
+Choose simplify=True because later on, the trtexec command on Jetson that one will run later on will only be able turn onnx models that is INT32 into .engine models, it cannot turn INT64 onnx models into .engine models. <br>
+
+### On Jetson Nano (4GB)
+9:  Run this command on the Jetson Nano 4GB to **<ins>convert</ins> .onnx model into .engine model** serialised on and optimised for the particular Jetson machine we have. <br>
+
+```
+/usr/src/tensorrt/bin/trtexec --onnx=/home/grace/Templates/models/4best.onnx --saveEngine=/home/grace/Templates/models/4best.engine
+```
+
+This command must be run on the SAME Jetson that we are using to run inference, this is a must for serialisation of .engine model. <br>
+
+10: <ins>**Use .engine model to run inference**</ins> on images saved on the Jetson Nano (4GB) using the script engine_inference.py (file in this github repository) and this command. <br>
+
+```
+LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1 python3 engine_inference.py --engine /home/grace/Templates/models/4best.engine --input /home/grace/Templates/images/batch1_14.jpg --output /home/grace/Templates/images/batch_14_output.jpg
+```
+
 <p align="center">
-  <img src="pictures/Setup.jpg" width="250" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i>Wireless Nvidia Jetson Nano (4GB) Setup</i></br>
+  <img src="pictures/output_image8.jpg" width="250" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i>Output Image from running engine_inference.py on Jetson Nano (4GB)</i></br>
 </p>
 
+11: **Assess accuracy**, and **retrain model by going back to step 1 and adding images of under-represented classes to Roboflow dataset** if accuracy <95%. <br>
 
-# Repository contains files for deployment on aircraft:
-1. YOLOv8_Training_Colab.ipynb — **Colab notebook** used to train dataset
-2. inference.py -  Script for Nvidia Jetson Nano (4GB) to **run inference** on images captured by Raspberry Pi camera
-3. utils.py: **Helper script** for tiling images (3×3) to improve detection of tiny food bits
+
+
+
+# Repository contains files for ML training:
+1. coco_to_yolov8n.py — **Python Script** used to convert COCO annotation.json exported from Roboflow into YOLOv8n labels needed for training of YOLOv8n models.
+2. data.yaml - **.yaml file** needed for training of YOLOv8n model using the terminal command above.
+3. engine_inference.py -  **Python Script** for Nvidia Jetson Nano (4GB) to **run inference** on images captured by Raspberry Pi camera using a .engine model.
 4. frontend_ipad.html and backend.py - Generate flight_details .json file containing destination to enable cabin crew to **dynamically change** Jetson Nano's output result **according to destination** and possibility of changes to ICW regulations.
 
 
