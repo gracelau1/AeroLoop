@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
 engine_inference.py
+This script is to be deployed on Jetson Nano (4GB) to run inference on an image using a TensorRT (.engine) model.
+The .engine model was converted from Yolov8n-based INT32 .onnx model (serialised) on the Jetson Nano (4GB) using its trtexec command. It has to be serialised (converted) on the same Jetson Nano as the one used to run inference.
 
-TensorRT YOLOv8-Seg inference on Jetson with proper YOLOv8 mask proto decoding,
-robust contour extraction (OpenCV compatibility), letterbox handling, top-k pre-NMS filtering,
-and polygon label placement (centroid).
+This inference script does YOLOv8/Yolov8n mask proto decoding, contour extraction (OpenCV compatibility), 
+letterbox handling, top-k pre-NMS filtering, and polygon label placement (centroid).
 """
 
 import argparse
