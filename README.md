@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/855e2def-cdd4-4b4c-b84a-1058259ec396
 # Component 3: Food and Recyclables Detection
 <p align="center">
   <img src="pictures/Slide.png" width="900" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i>System Architecture Diagram -> Actual Hardware Implementation</i></br>
+  <i>System Architecture Diagram and Actual Hardware Implementation</i></br>
 </p>
 
 ## ML Model Training for purposes of implementing Computer Vision
