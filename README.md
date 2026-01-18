@@ -20,7 +20,7 @@ This github contains files to train a Computer Vision Image Segmentation model o
 2: <ins>**Label** </ins> images collected on Roboflow, and since this is image segmentation, do this by drawing polygons over objects. Use Roboflow's Smart Polygon tool to do this. [Link to labelled Roboflow Dataset](https://app.roboflow.com/boeing-yqqas/computer-vision-project-fonhr/models)<br>
 
 <p align="center">
-  <img src="pictures/labelling2.gif" width="600" alt="Labelling GIF" /><br>
+  <img src="pictures/labelling2.gif" width="700" alt="Labelling GIF" /><br>
   <i>Image Segmentation on Roboflow</i>
 </p>
 
@@ -63,9 +63,9 @@ LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1 python3 engine_inference.py -
 
 <p align="center">
   <img src="pictures/output_image_8.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i><b>Before</b></i></br>
+  <i><b>Before</b> running ML Model</i></br>
   <img src="pictures/output_image_9.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i><b>After</b> running inference using ML Model</i></br>
+  <i><b>After</b> running ML Model</i></br>
 </p>
 
 11: **Assess accuracy** **latency**, and **retrain model by going back to step 1 and adding images of under-represented classes to Roboflow dataset** if accuracy <95% or if latency is not desirable. <br>
