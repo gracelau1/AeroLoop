@@ -5,10 +5,22 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 # Video: How the system is used by Cabin Crew Staff (Flow of Operations)
 https://github.com/user-attachments/assets/855e2def-cdd4-4b4c-b84a-1058259ec396
 
-# Component 2 of AeroLoop: ML Model Training for purposes of implementing Computer Vision
+# System Architecture
+<p align="center">
+  <img src="pictures/.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i><b>Before</b></i></br>
+</p>
+
+# System Architecture of Component 2 of AeroLoop: Computer Vision
+<p align="center">
+  <img src="pictures/Component2Architecture.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i><b>Before</b></i></br>
+</p>
+
+## ML Model Training for purposes of implementing Computer Vision
 This github contains files to train a Computer Vision Image Segmentation model on Airline Meal images from scratch for deployment on Jetson Nano (4GB), making use of free features on the Roboflow platform.
-## Process:
-### On Windows 11 Local Computer
+### Process:
+#### On Windows 11 Local Computer
 1: <ins>**Collect dataset**</ins> (using a phone/digital camera) <br>
 
 2: <ins>**Label** </ins> images collected on Roboflow, and since this is image segmentation, do this by drawing polygons over objects. Use Roboflow's Smart Polygon tool to do this. [Link to labelled Roboflow Dataset](https://app.roboflow.com/boeing-yqqas/computer-vision-project-fonhr/models)<br>
@@ -56,10 +68,10 @@ LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1 python3 engine_inference.py -
 ```
 
 <p align="center">
-  <img src="pictures/output_image8.jpg" width="500" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i>Before</i></br>
-  <img src="pictures/output_image9.jpg" width="500" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i>After</i></br>
+  <img src="pictures/output_image_8.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i><b>Before</b></i></br>
+  <img src="pictures/output_image_9.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i><b>After</b> running inference using ML Model</i></br>
 </p>
 
 11: **Assess accuracy** **latency**, and **retrain model by going back to step 1 and adding images of under-represented classes to Roboflow dataset** if accuracy <95% or if latency is not desirable. <br>
