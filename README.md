@@ -7,10 +7,7 @@ https://github.com/user-attachments/assets/855e2def-cdd4-4b4c-b84a-1058259ec396
 
 # Component 3: Food and Recyclables Detection
 <p align="center">
-  <img src="pictures/Component2Architecture.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i>System Architecture of Computer Vision Detection System</i></br>
-  <img src="pictures/ProjectKitLayout.png" width="700" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i>Physical Layout of System Components on Detection Kit</i></br>
+  <img src="pictures/Slide.png" width="900" alt="Setup Pic" style="display: inline-block;"/><br>
 </p>
 
 ## ML Model Training for purposes of implementing Computer Vision
