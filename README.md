@@ -5,16 +5,12 @@ A waste management system to **salvage on-flight recyclables** on commercial fli
 # Video: How the system is used by Cabin Crew Staff (Flow of Operations)
 https://github.com/user-attachments/assets/855e2def-cdd4-4b4c-b84a-1058259ec396
 
-# System Architecture
-<p align="center">
-  <img src="pictures/.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i><b>Before</b></i></br>
-</p>
-
-# System Architecture of Component 2 of AeroLoop: Computer Vision
+# Component 3: Food and Recyclables Detection
 <p align="center">
   <img src="pictures/Component2Architecture.png" width="600" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i><b>Before</b></i></br>
+  <i>System Architecture of Computer Vision Detection System</i></br>
+  <img src="pictures/ProjectKit.png" width="400" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i>Physical Layout of System Components on Detection Kit</i></br>
 </p>
 
 ## ML Model Training for purposes of implementing Computer Vision
