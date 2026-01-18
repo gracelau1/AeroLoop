@@ -2,12 +2,11 @@
 # AeroLoop
 A waste management system to **salvage on-flight recyclables** on commercial flights, optimised for **minimal energy use, hardware cost and weight added** to aircraft, designed for the purpose of seperating International Catering Waste (ICW) from non-ICW, so that recyclables **do not have to be incinerated or landfilled**.
 
-# System Architecture
-![Alt text](pictures/SystemArchitecture.png)
+# Video: How the system is used by Cabin Crew Staff (Flow of Operations)
+https://github.com/user-attachments/assets/855e2def-cdd4-4b4c-b84a-1058259ec396
 
-
-# Component 2 of AeroLoop: Airline Meal Computer Vision Project
-This github contains files to train a Computer Vision Image Segmentation model from scratch for deployment on Jetson Nano (4GB), making use of free features on the Roboflow platform.
+# Component 2 of AeroLoop: ML Model Training for purposes of implementing Computer Vision
+This github contains files to train a Computer Vision Image Segmentation model on Airline Meal images from scratch for deployment on Jetson Nano (4GB), making use of free features on the Roboflow platform.
 ## Process:
 ### On Windows 11 Local Computer
 1: <ins>**Collect dataset**</ins> (using a phone/digital camera) <br>
@@ -57,8 +56,10 @@ LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1 python3 engine_inference.py -
 ```
 
 <p align="center">
-  <img src="pictures/output_image8.jpg" width="250" alt="Setup Pic" style="display: inline-block;"/><br>
-  <i>Output Image from running engine_inference.py on Jetson Nano (4GB)</i></br>
+  <img src="pictures/output_image8.jpg" width="500" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i>Before</i></br>
+  <img src="pictures/output_image9.jpg" width="500" alt="Setup Pic" style="display: inline-block;"/><br>
+  <i>After</i></br>
 </p>
 
 11: **Assess accuracy** **latency**, and **retrain model by going back to step 1 and adding images of under-represented classes to Roboflow dataset** if accuracy <95% or if latency is not desirable. <br>
